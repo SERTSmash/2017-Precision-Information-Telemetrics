@@ -2,8 +2,10 @@
 <dwsync>
 <file name="config.php" server="138.197.210.15//var/www/html/" local="131397735247809579" remote="131397735460000000" Dst="2" />
 <file name="session.php" server="138.197.210.15//var/www/html/" local="131397757085810951" remote="131397757390000000" Dst="2" />
-<file name="index.php" server="138.197.210.15//var/www/html/" local="131397859793590041" remote="131397859860000000" Dst="2" />
+<file name="index.php" server="138.197.210.15//var/www/html/" local="131397908647314891" remote="131397908690000000" Dst="2" />
 <file name="logout.php" server="138.197.210.15//var/www/html/" local="131397714762284584" remote="131397724130000000" Dst="2" />
 <file name="login.php" server="138.197.210.15//var/www/html/" local="131397758301247927" remote="131397758670000000" Dst="2" />
 <file name="createuser.php" server="138.197.210.15//var/www/html/" local="131397749998449050" remote="131397750070000000" Dst="2" />
+<file name="report.php" server="138.197.210.15//var/www/html/" local="131397952415418888" remote="131397952620000000" Dst="2" />
+<file name="view.php" server="138.197.210.15//var/www/html/" local="131398006455764812" remote="131398006740000000" Dst="2" />
 </dwsync>

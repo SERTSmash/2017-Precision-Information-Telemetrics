@@ -18,19 +18,6 @@
 		}
 		//-->
 	</script>
-	<script type="text/javascript">
-    // when page is ready
-    $(document).ready(function() {
-         // on form submit
-        $("#form").submit(function() {
-            // to each unchecked checkbox
-            $(this + 'input[type=checkbox]:not(:checked)').each(function () {
-                // set value 0 and check it
-                $(this).attr('checked', true).val(0);
-            });
-        })
-    })
-	</script>
 </head>
 <body>
 	<div class="container">
@@ -43,63 +30,87 @@
 			<div class="col-md-3 center">
 			</div>
 			<div class="col-md-6 center">
-				<form id="form" class="center" action="report.php" method="post">
-					<br>
-					<p>Team Information:</p>
-					<div class="form-group"><input name="team_name" type="text" class="form-control" placeholder="Team Name"></div>
-					<div class="form-group"><input name="team_number" type="text" class="form-control" placeholder="Team Number"></div>
-					<div class="form-group"><input name="team_members" type="text" class="form-control" placeholder="Number of Team Members"></div>
-					<br>
-					<p>Program Information:</p>
-					<div>
-						<input type='hidden' value='0' name='autonomous'>
-						<label>Autonomous: </label><input type="checkbox" name="autonomous" value="1" onclick="showForm('auto', this)" /><br>
-						<div id="auto" style="display:none">
-							<input type='hidden' value='0' name='auto_beacons'>
-							<p>Can it capture beacons? <input type="checkbox" name="auto_beacons" value="1" /></p>
-							<input type='hidden' value='0' name='auto_capball'>
-							<p>Can it move the cap ball? <input type="checkbox" name="auto_capball" value="1" /></p>
-							<input type='hidden' value='0' name='auto_park_ramp'>
-							<p>Can it park on the ramp? <input type="checkbox" name="auto_park_ramp" value="1" /></p>
-							<input type='hidden' value='0' name='auto_park_ramp_full'>
-							<p>Can it park on the ramp completely? <input type="checkbox" name="auto_park_ramp_full" value="1" /></p>
-							<input type='hidden' value='0' name='auto_park_center'>
-							<p>Can it park on the center? <input type="checkbox" name="auto_park_center" value="1" /></p>
-							<input type='hidden' value='0' name='auto_park_center_full'>
-							<p>Can it park on the center completely? <input type="checkbox" name="auto_park_center_full" value="1" /></p>
-							<input type='hidden' value='0' name='auto_score_corner'>
-							<p>Can it get balls in the corner vortices? <input type="checkbox" name="auto_score_corner" value="1" /></p>
-							<input type='hidden' value='0' name='auto_score_center'>
-							<p>Can it get balls in the center vortex? <input type="checkbox" name="auto_score_center" value="1" /></p>
-							<input type='hidden' value='0' name='auto_reliable'>
-							<p>Is the autonomous reliable? <input type="checkbox" name="auto_reliable" value="1" /></p>
-							<div class="form-group"><textarea name="auto_blob" class="form-control" placeholder="More info about Autonomous" rows="5"></textarea></div>
-						</div>
-						<input type='hidden' value='0' name='teleop'>
-						<label>TeleOp: </label><input type="checkbox" name="teleop" value="1" onclick="showForm('tele', this)" /><br>
-						<div id="tele" style="display:none">
-							<input type='hidden' value='0' name='tele_beacons'>
-							<p>Can it capture beacons? <input type="checkbox" name="tele_beacons" value="1" /></p>
-							<input type='hidden' value='0' name='tele_score_corner'>
-							<p>Can it get balls in the corner vortices? <input type="checkbox" name="tele_score_corner" value="1" /></p>
-							<input type='hidden' value='0' name='tele_score_center'>
-							<p>Can it get balls in the center vortex? <input type="checkbox" name="tele_score_center" value="1" /></p>
-							<input type='hidden' value='0' name='tele_capball_lift'>
-							<p>Can it lift the cap ball? <input type="checkbox" name="tele_capball_lift" value="1" /></p>
-							<input type='hidden' value='0' name='tele_capball_lifthigh'>
-							<p>Can it lift the cap ball above the bar? <input type="checkbox" name="tele_capball_lifthigh" value="1" /></p>
-							<input type='hidden' value='0' name='tele_capball_cap'>
-							<p>Can it cap the cap ball <input type="checkbox" name="tele_capball_cap" value="1" /></p>
-							<input type='hidden' value='0' name='tele_reliable'>
-							<p>It the TeleOp reliable? <input type="checkbox" name="tele_reliable" value="1" /></p>
-							<div class="form-group"><textarea name="tele_blob" class="form-control" placeholder="More info about TeleOp" rows="5"></textarea></div>
-						</div>
-					</div>
-					<br>
-					<p>Additionl Info:</p>
-					<div class="form-group"><textarea name="info_blob" class="form-control" placeholder="More info about team or robot" rows="5"></textarea></div>
-					<div class="form-group"><input type="submit" class="btn btn-info" value="Submit Report"></div>
-				</form>
+				<?php
+					if($_SERVER["REQUEST_METHOD"] == "GET" ) {
+						$report = mysqli_real_escape_string($db,$_GET['report']);
+				?>
+				
+				<table class="table table-striped table-bordered table-condensed table-hover">
+					<?php
+						$fields = array(
+							"team_name",
+							"team_number",
+							"team_members",
+							"autonomous",
+							"auto_beacons",
+							"auto_capball",
+							"auto_park_ramp",
+							"auto_park_ramp_full",
+							"auto_park_center",
+							"auto_park_center_full",
+							"auto_score_corner",
+							"auto_score_center",
+							"auto_reliable",
+							"auto_blob",
+							"teleop",
+							"tele_beacons",
+							"tele_score_corner",
+							"tele_score_center",
+							"tele_capball_lift",
+							"tele_capball_lifthigh",
+							"tele_capball_cap",
+							"tele_reliable",
+							"tele_blob",
+							"info_blob");
+						$field_names = array(
+							"Team Name: ",
+							"Team Number: ",
+							"Team Members: ",
+							"Has Autonomous: ",
+							"Can capture beacons in autonomous: ",
+							"Can knock capball off center: ",
+							"Can park on ramp: ",
+							"Can park fully on ramp: ",
+							"Can park on center: ",
+							"Can park fully on center: ",
+							"Can score into corner during autonomous: ",
+							"Can score into center during autonomous: ",
+							"Autonomous program is reliable: ",
+							"Additional autonomous info: ",
+							"Has TeleOp: ",
+							"Can capture beacons in TeleOp: ",
+							"Can score into corner in TeleOp: ",
+							"Can score into center in TeleOp: ",
+							"Can lift cap ball: ",
+							"Can lift cap ball above bars: ",
+							"Can cap the cap ball: ",
+							"TeleOp program is reliable: ",
+							"Additional info about TeleOp: ",
+							"Other additional info: ");
+						
+						$sql = "SELECT * FROM reports WHERE ReportID = '$report'";
+						$result = mysqli_query($db,$sql);
+						$row = mysqli_fetch_array($result);
+						
+						for ($i = 0; $i <= count($fields); $i++ ) {
+    						//echo "$field_names[$i] $fields[$i]";
+
+							
+							echo "<tr>";
+							echo "<td>$field_names[$i]</td>";
+							echo "<td>" . $row[$fields[$i]] . "</td>";
+							echo "</tr>";
+						} 
+					?>
+				</table>
+				
+				
+				
+				
+				
+				<?php
+					}
+				?>
 			</div>
 			<div class="col-md-3"></div>
 		</div>

@@ -27,7 +27,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 	$info_blob = mysqli_real_escape_string($db,$_POST['info_blob']);
 	
 	
-	$sql_report = "INSERT INTO reports (
+	$sql = "INSERT INTO reports (
 		team_name,
 		team_number,
 		team_members,
@@ -78,12 +78,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 		'$tele_blob',
 		'$info_blob'
 	)";
-
-	if (mysqli_query($db, $sql_report)) {
-    	//echo "Main report created successfully";
+	if (mysqli_query($db, $sql)) {
+    	echo "Report created successfully";
 		$report_id = mysqli_insert_id($db);
+		//echo $report_id;
+		header("Location: view.php?report=" . $report_id);
 	} else {
-		echo "Error: " . $sql_report . mysqli_error($db);
+		echo "Error: " . $sql . mysqli_error($db);
 	}
 	
 }
