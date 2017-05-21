@@ -14,28 +14,20 @@
 		}
 		//-->
 	</script>
-	<script type="text/javascript">
-    // when page is ready
-    $(document).ready(function() {
-         // on form submit
-        $("#form").submit(function() {
-            // to each unchecked checkbox
-            $(this + 'input[type=checkbox]:not(:checked)').each(function () {
-                // set value 0 and check it
-                $(this).attr('checked', true).val(0);
-            });
-        })
-    })
-	</script>
 </head>
 <body>
 	<div class="container">
 		<div class="row">
-			<div class="col-md-3 center">
+			<div class="col-md-2 center">
 			</div>
-			<div class="col-md-6 center">
+			<div class="col-md-8 center">
+				<form action="/report/view.php">
+				<input type="text" name="report" class="form-control" placeholder="Report Number"><br>
+				<input type="submit" value="Look up report" class="btn btn-info"></a></form>
+			
+				<a href="index.php" class="btn btn-info">Create Report</a>
 			</div>
-			<div class="col-md-3"></div>
+			<div class="col-md-2"></div>
 		</div>
 	</div>
 
